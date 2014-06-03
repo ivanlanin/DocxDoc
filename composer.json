@@ -1,0 +1,24 @@
+{
+    "name": "ivanlanin/docxdoc",
+    "description": "A collection of utilities to parse or manipulate OOXML DOCX",
+    "keywords": [
+        "OOXML", "DOCX"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ivan Lanin",
+            "homepage": "http://ivan.lanin.org"
+        }
+    ],
+    "require": {
+        "php": ">=5.3",
+        "ext-xml": "*",
+        "ext-zip": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "DocxDoc\\": "src/DocxDoc"
+        }
+    }
+}
