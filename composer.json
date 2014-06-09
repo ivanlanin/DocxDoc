@@ -1,5 +1,5 @@
 {
-    "name": "ivanlanin/docxdoc",
+    "name": "docxdoc/docxdoc",
     "description": "A collection of utilities to parse or manipulate OOXML DOCX",
     "keywords": [
         "OOXML", "DOCX"
