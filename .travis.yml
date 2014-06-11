@@ -1,0 +1,24 @@
+language: php
+
+php:
+    - 5.3
+    - 5.4
+    - 5.5
+    - 5.6
+
+before_script:
+    - composer self-update
+    - composer install --prefer-source --dev
+    - curl -o phpcpd.phar https://phar.phpunit.de/phpcpd.phar
+    - pear config-set preferred_state beta
+    - printf "\n" | pecl install imagick
+    - pear channel-discover pear.phpmd.org
+    - pear channel-discover pear.pdepend.org
+    - pear install --alldeps phpmd/PHP_PMD
+    - phpenv rehash
+
+script:
+    - ./vendor/bin/phpcs src/ tests/ --standard=PSR2 -n
+    - php phpcpd.phar src/ tests/ --verbose
+    - phpmd src/,tests/ text design,naming,unusedcode,controversial,codesize
+    - phpunit
