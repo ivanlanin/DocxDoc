@@ -44,7 +44,7 @@ class Explorer
         $files = array();
         $zip = new \ZipArchive();
         $zip->open($this->filename);
-        for ($i = 0; $i < $zip->numFiles; $i++ ) {
+        for ($i = 0; $i < $zip->numFiles; $i++) {
             $file = $zip->statIndex($i);
             $path = pathinfo($file['name']);
             if ($path['dirname'] != '.') {
