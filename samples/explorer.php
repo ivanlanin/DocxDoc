@@ -9,5 +9,5 @@ use DocxDoc\Explorer;
 
 $filename = __DIR__ . '/resources/doc.docx';
 $explorer = new Explorer($filename);
-$files = $explorer->parsePackage();
+$files = $explorer->parseImages();
 echo implode('<br />', $files);

@@ -35,7 +35,7 @@ class Explorer
      *
      * @return array
      */
-    public function parsePackage()
+    public function parsePackage($imageOnly = false)
     {
         if (file_exists($this->filename) === false) {
             throw new \Exception('File does not exists.');
@@ -46,13 +46,23 @@ class Explorer
         $zip->open($this->filename);
         for ($i = 0; $i < $zip->numFiles; $i++) {
             $file = $zip->statIndex($i);
-            $path = pathinfo($file['name']);
-            if ($path['dirname'] != '.') {
-                $files[] = $file['name'];
+            $filename = $file['name'];
+            $path = pathinfo($filename);
+            if (substr($filename, -1) == '/') {
+                continue;
             }
-            sort($files);
+            if ($imageOnly === true && $path['dirname'] != 'word/media') {
+                continue;
+            }
+            $files[] = $file['name'];
         }
+        sort($files);
 
         return $files;
+    }
+
+    public function parseImages()
+    {
+        return $this->parsePackage(true);
     }
 }
