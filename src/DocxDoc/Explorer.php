@@ -72,6 +72,7 @@ class Explorer
     {
         $files = $this->parsePackage(true);
         $targetDir = __DIR__ . '/../../temp';
+        $this->emptyDir($targetDir);
 
         $zip = new \ZipArchive();
         $zip->open($this->filename);
@@ -86,5 +87,22 @@ class Explorer
         $zip->close();
 
         return $files;
+    }
+
+    /**
+     * Empty dir
+     *
+     * @param string $targetDir
+     */
+    private function emptyDir($targetDir)
+    {
+        if ($handle = opendir($targetDir)) {
+            while (false !== ($file = readdir($handle))) {
+                if (in_array($file, array('.', '..', '.gitignore')) === false) {
+                    unlink($targetDir . '/' . $file);
+                }
+            }
+            closedir($handle);
+        }
     }
 }

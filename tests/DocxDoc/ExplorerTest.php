@@ -22,8 +22,21 @@ class ExplorerTest extends \PHPUnit_Framework_TestCase
     {
         $filename = __DIR__ . '/../resources/doc.docx';
         $explorer = new Explorer($filename);
-        $files = $explorer->parsePackage();
+        $files = $explorer->parseImages();
 
-        $this->assertEquals(27, count($files));
+        $this->assertEquals(1, count($files));
+    }
+
+    /**
+     * Test parsePackage exception
+     *
+     * @expectedException \Exception
+     * @expectedExceptionMessage File does not exists
+     */
+    public function testParsePackageException()
+    {
+        $filename = __DIR__ . '/../resources/foo.docx';
+        $explorer = new Explorer($filename);
+        $files = $explorer->parseImages();
     }
 }
