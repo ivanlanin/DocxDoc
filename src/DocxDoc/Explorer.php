@@ -33,6 +33,7 @@ class Explorer
     /**
      * Parse package and return list of files
      *
+     * @param bool $imageOnly
      * @return array
      */
     public function parsePackage($imageOnly = false)
@@ -54,15 +55,36 @@ class Explorer
             if ($imageOnly === true && $path['dirname'] != 'word/media') {
                 continue;
             }
-            $files[] = $file['name'];
+            $files[$filename] = $file;
         }
-        sort($files);
+        $zip->close();
+        ksort($files);
 
         return $files;
     }
 
+    /**
+     * Parse images
+     *
+     * @return array
+     */
     public function parseImages()
     {
-        return $this->parsePackage(true);
+        $files = $this->parsePackage(true);
+        $targetDir = __DIR__ . '/../../temp';
+
+        $zip = new \ZipArchive();
+        $zip->open($this->filename);
+        foreach ($files as &$file) {
+            $filename = $file['name'];
+            $fileinfo = pathinfo($filename);
+            $sourceFile = "zip://{$this->filename}#{$filename}";
+            $targetFile = "{$targetDir}/{$fileinfo['basename']}";
+            $file['source'] = '../temp/' . $fileinfo['basename'];
+            copy($sourceFile, $targetFile);
+        }
+        $zip->close();
+
+        return $files;
     }
 }
