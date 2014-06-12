@@ -22,3 +22,7 @@ script:
     - php phpcpd.phar src/ tests/ --verbose
     - phpmd src/,tests/ text design,naming,unusedcode,controversial,codesize
     - phpunit
+
+after_script:
+    - wget https://scrutinizer-ci.com/ocular.phar
+    - php ocular.phar code-coverage:upload --format=php-clover build/clover.xml

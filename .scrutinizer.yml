@@ -1,0 +1,19 @@
+filter:
+    excluded_paths: [ 'vendor/*', 'tests/*', 'samples/*' ]
+
+before_commands:
+    - "composer install --prefer-source --dev"
+
+tools:
+    php_code_sniffer:
+        enabled: true
+        config:
+            standard: PSR2
+    php_mess_detector: true
+    external_code_coverage:
+        enabled: true
+        timeout: 900
+    php_sim: true
+    php_pdepend: true
+    php_analyzer: true
+    sensiolabs_security_checker: true

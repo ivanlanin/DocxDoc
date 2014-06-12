@@ -5,10 +5,12 @@
             <directory>tests/DocxDoc/</directory>
         </testsuite>
     </testsuites>
-
     <filter>
         <whitelist>
             <directory suffix=".php">src/DocxDoc/</directory>
         </whitelist>
     </filter>
+    <logging>
+        <log type="coverage-clover" target="./build/clover.xml" />
+    </logging>
 </phpunit>
